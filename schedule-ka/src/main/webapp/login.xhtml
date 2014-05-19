@@ -1,27 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
         <!--<meta charset="utf-8"></meta>-->
         <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-        <title>SCH-KA</title>
+        <title>Penjadwalan</title>
 
         <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet"></link>
-        <link href="css/style.css" rel="stylesheet"></link>
+<!--        <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+        <link href="css/style.css" rel="stylesheet"></link>-->
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="style.css" />
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-    </head>
-    <body>
+    </h:head>
+    <h:body>
         <div id="header">
             <nav class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="container">
@@ -51,21 +53,44 @@ and open the template in the editor.
         </div>
         
         <div class="container login">
-            <form class="form-signin">
-                <h2 class="form-signin-heading">Please sign in</h2>
-                <input type="email" class="form-control"></input>
-                <input type="password" class="form-control"></input>
-                <label class="checkbox">
-                    <input type="checkbox" value="remember-me"></input> Remember me
-                </label>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </form>
+            <h:form id="loginForm" styleClass="form-signin">         
+                <p:growl id="msg" showDetail="true" life="3000" />
+                <p:panel header="Login" style="width: 360px;">
+
+                    <h:panelGrid id="loginPanel" columns="2">
+
+                        <h:outputText value="Username" />
+
+                        <p:inputText id="username" value="#{loginBean.uname}" ></p:inputText>
+
+                        <p:spacer></p:spacer>
+
+                        <p:message for="username" ></p:message>
+
+                        <h:outputText value="Password" />
+
+                        <p:password id="password" value="#{loginBean.password}"  feedback="false"></p:password>
+
+                        <p:spacer></p:spacer>
+
+                        <p:message for="password"></p:message>
+
+                        <p:spacer></p:spacer>
+
+                        <p:commandButton action="#{loginBean.loginProject}" value="Login" update="loginForm" ajax="true"></p:commandButton>
+
+                    </h:panelGrid>
+
+                </p:panel>
+                <h:outputText value="#{loginBean.uname}" />
+                <h:outputText value="#{loginBean.password}" />
+                <h:outputText value="#{loginBean.message}" />
+
+            </h:form>
         </div>
-        
-        <div id="footer">
+    <div id="footer">
             © 2014 Rekayasa Perangkat Lunak
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-    </body>
+        <h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+    </h:body>
 </html>
