@@ -16,7 +16,18 @@ public class Kalender {
     private String startDate;
     private String endDate;
     private String jenis;
-
+    
+    public Kalender(int id, String startDate, String endDate, String jenis){
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.jenis = jenis;
+    }
+    
+    public Kalender(){
+        
+    }
+    
     public int getId() {
         return id;
     }

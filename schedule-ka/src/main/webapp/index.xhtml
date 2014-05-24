@@ -68,64 +68,149 @@
                         </div>
                         <h:form prependId="false">
  
-                            <p:dataTable id="dataTable" var="seminar" value="#{indexBean.jSeminar}"
+                            <p:dataTable id="dataTable" var="smnr" value="#{indexBean.jSeminar}"
                                          paginator="true" rows="10"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                         rowsPerPageTemplate="5,10,15">
+                                         rowsPerPageTemplate="5,10,15"
+                                         rowKey="#{smnr.id}"
+                                         selection="#{indexBean.pilihanJSeminar}"
+                                         selectionMode="single">>
                                 <f:facet name="header">
-                                    <h:form>
+                                    
                                         <h:outputText value="Cari berdasarkan : " />
-                                        <p:selectOneMenu value="#{indexBean.pilihan}">
+                                        <p:selectOneMenu value="#{indexBean.pSeminar}">
                                             <f:selectItem itemLabel="Select One" itemValue="" />
-                                            <f:selectItem itemLabel="NIM" itemValue="nim" />
-                                            <f:selectItem itemLabel="Nama" itemValue="nama" />
-                                            <f:selectItem itemLabel="Pembimbing 1" itemValue="pembimbing1" />
-                                            <f:selectItem itemLabel="Pembimbing 2" itemValue="pembimbing2" />
+                                            <f:selectItem itemLabel="ID" itemValue="id" />
+                                            <f:selectItem itemLabel="ID KA" itemValue="idKA" />
                                             <f:selectItem itemLabel="Tanggal" itemValue="tanggal" />
                                             <f:selectItem itemLabel="Jam" itemValue="jam" />
-                                            <f:selectItem itemLabel="Ruangan" itemValue="ruang" />
+                                            <f:selectItem itemLabel="Status" itemValue="Status" />
                                         </p:selectOneMenu>
-                                        <h:inputText value="#{indexBean.cari}" />
+                                        <h:inputText value="#{indexBean.cariSeminar}" />
                                         <h:commandButton action="#{indexBean.getjSeminar()}" value="Cari" />
-                                    </h:form>
+                                   
                                 </f:facet>
                                 
-                                <p:column sortBy="nim" headerText="NIM">
-                                    <h:outputText value="#{seminar.nim}" />
+                                <p:column sortBy="id" headerText="ID">
+                                    <h:outputText value="#{smnr.id}" />
                                 </p:column>
 
-                                <p:column sortBy="nama" headerText="Nama">
-                                    <h:outputText value="#{seminar.nama}" />
+                                <p:column sortBy="idKA" headerText="ID KA">
+                                    <h:outputText value="#{smnr.idKA}" />
                                 </p:column>
 
-                                <p:column sortBy="pembimbing1" headerText="Pembimbing 1">
-                                    <h:outputText value="#{seminar.pembimbing1}" />
-                                </p:column>
-
-                                <p:column sortBy="pembimbing2" headerText="Pembimbing 2">
-                                    <h:outputText value="#{seminar.pembimbing2}" />
-                                </p:column>
-                                
                                 <p:column sortBy="tanggal" headerText="Tanggal">
-                                    <h:outputText value="#{seminar.tanggal}" />
+                                    <h:outputText value="#{smnr.tanggal}" />
                                 </p:column>
-                                
+
                                 <p:column sortBy="jam" headerText="Jam">
-                                    <h:outputText value="#{seminar.jam}" />
+                                    <h:outputText value="#{smnr.jam}" />
                                 </p:column>
                                 
-                                <p:column sortBy="ruang" headerText="Ruang">
-                                    <h:outputText value="#{seminar.ruang}" />
+                                <p:column sortBy="status" headerText="Status">
+                                    <h:outputText value="#{smnr.status}" />
                                 </p:column>
+                            
                             </p:dataTable>
 
                         </h:form>
                             </p:tab>
                             <p:tab id="Sidang" title="Sidang">
+                                <p:dataTable id="dataTable2" var="sdng" value="#{indexBean.jSidang}"
+                                         paginator="true" rows="10"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         rowKey="#{sdng.id}"
+                                         selection="#{indexBean.pilihanJSidang}"
+                                         selectionMode="single">>
+                                <f:facet name="header">
+                                <h:outputText value="Cari berdasarkan : " />
+                                <p:selectOneMenu value="#{indexBean.pSidang}">
+                                            <f:selectItem itemLabel="Select One" itemValue="" />
+                                            <f:selectItem itemLabel="ID" itemValue="id" />
+                                            <f:selectItem itemLabel="ID KA" itemValue="idKA" />
+                                            <f:selectItem itemLabel="Tanggal" itemValue="tanggal" />
+                                            <f:selectItem itemLabel="Jam" itemValue="jam" />
+                                            <f:selectItem itemLabel="Status" itemValue="Status" />
+                                        </p:selectOneMenu>
+                                <h:inputText value="#{indexBean.cariSidang}" />
+                                <h:commandButton action="#{indexBean.getjSidang()}" value="Cari" />
+                                </f:facet>
                                 
+                                <p:column sortBy="id" headerText="ID">
+                                    <h:outputText value="#{sdng.id}" />
+                                </p:column>
+
+                                <p:column sortBy="idKA" headerText="ID KA">
+                                    <h:outputText value="#{sdng.idKA}" />
+                                </p:column>
+                        
+                                <p:column sortBy="idSeminar" headerText="ID Seminar">
+                                    <h:outputText value="#{sdng.idSeminar}" />
+                                </p:column>
+                        
+                                <p:column sortBy="penguji1" headerText="Penguji 1">
+                                    <h:outputText value="#{sdng.penguji1}" />
+                                </p:column>
+                        
+                                <p:column sortBy="penguji2" headerText="Penguji 2">
+                                    <h:outputText value="#{sdng.penguji2}" />
+                                </p:column>
+
+                                <p:column sortBy="tanggal" headerText="Tanggal">
+                                    <h:outputText value="#{sdng.tanggal}" />
+                                </p:column>
+
+                                <p:column sortBy="jam" headerText="Jam">
+                                    <h:outputText value="#{sdng.jam}" />
+                                </p:column>
+                                
+                                <p:column sortBy="status" headerText="Status">
+                                    <h:outputText value="#{sdng.status}" />
+                                </p:column>
+                            
+                            </p:dataTable>
                             </p:tab>
                             <p:tab id="Event" title="Event">
+                                <p:dataTable id="dataTable3" var="evt" value="#{indexBean.event}"
+                                         paginator="true" rows="10"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         rowKey="#{evt.id}"
+                                         selection="#{indexBean.pilihanEvent}"
+                                         selectionMode="single">>
+                                <f:facet name="header">
+                                <h:outputText value="Cari berdasarkan : " />
+                                <p:selectOneMenu value="#{indexBean.pEvent}">
+                                            <f:selectItem itemLabel="Select One" itemValue="" />
+                                            <f:selectItem itemLabel="ID" itemValue="id" />
+                                            <f:selectItem itemLabel="ID KA" itemValue="idKA" />
+                                            <f:selectItem itemLabel="Tanggal" itemValue="tanggal" />
+                                            <f:selectItem itemLabel="Jam" itemValue="jam" />
+                                            <f:selectItem itemLabel="Status" itemValue="Status" />
+                                        </p:selectOneMenu>
+                                <h:inputText value="#{indexBean.cariEvent}" />
+                                <h:commandButton action="#{indexBean.getEvent()}" value="Cari" />
+                                </f:facet>
                                 
+                                <p:column sortBy="id" headerText="ID">
+                                    <h:outputText value="#{evt.id}" />
+                                </p:column>
+
+                                <p:column sortBy="tanggal" headerText="Tanggal">
+                                    <h:outputText value="#{evt.tanggal}" />
+                                </p:column>
+                        
+                                <p:column sortBy="info" headerText="Info">
+                                    <h:outputText value="#{evt.info}" />
+                                </p:column>
+                        
+                                <p:column sortBy="duedate" headerText="Sampai Dengan">
+                                    <h:outputText value="#{evt.duedate}" />
+                                </p:column>
+                        
+                            
+                            </p:dataTable>
                             </p:tab>
                         </p:tabView>
                     </div>

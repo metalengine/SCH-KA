@@ -35,14 +35,15 @@ public class Util {
         return  session.getAttribute("username").toString();
       }
        
-      public static String getUserId()
+      public static String getUserId()      
       {
+          String userid;
         HttpSession session = getSession();
-        String userid = null;
-        if ( session != null ){
+        if ( session != null )
             userid = (String) session.getAttribute("userid");
-        }
-        return userid;
-        }
+        else
+            userid = null;
+      return userid;  
+      }
       
 }

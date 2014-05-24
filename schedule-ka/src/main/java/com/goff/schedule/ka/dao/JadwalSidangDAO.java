@@ -101,6 +101,64 @@ public class JadwalSidangDAO {
         return jSidang;
     }
     
+    public List<JadwalSidang> findSidangByAttribute (String status) throws NoSuchAlgorithmException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        List<JadwalSidang> jSidang = new ArrayList<JadwalSidang>();
+        HttpSession session = Util.getSession();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from jadwalSidang where penguji1=? and status=?");
+            
+            ps.setString(1, session.getAttribute("inisial").toString());
+            ps.setString(2, status);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){
+                jSidang.add(new JadwalSidang(rs.getInt("id"),Integer.toString(rs.getInt("idSeminar")),Integer.toString(rs.getInt("idKA")),rs.getString("tanggal"),rs.getString("jam"),rs.getString("ruang"),rs.getString("penguji1"),rs.getString("penguji2"),rs.getString("status")));
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Error ambil sidang --> " + ex.getMessage());
+            
+        } finally {
+            Database.close(con);
+        }
+        return jSidang;
+    }
+    
+    public String findPembimbing(int idSeminar){
+        Connection con = null;
+        PreparedStatement ps = null;
+        String inisial="";
+        HttpSession session = Util.getSession();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select ka.pembimbing1 as inisial,ka.id,jadwalSeminar.id,jadwalSeminar.idKA from ka,jadwalSeminar where jadwalSeminar.id=? and ka.id=jadwalSeminar.idKA");
+            
+            ps.setInt(1, idSeminar);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){
+                inisial=rs.getString("inisial");
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Error ambil pembimbing --> " + ex.getMessage());
+            
+        } finally {
+            Database.close(con);
+        }
+        
+        return inisial;
+    }
+        
+    
+    
     public void delete (int id) throws NoSuchAlgorithmException {
         Connection con = null;
         PreparedStatement ps = null;

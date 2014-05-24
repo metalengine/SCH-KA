@@ -6,12 +6,14 @@
 
 package com.goff.schedule.ka.dao;
 
-import com.goff.schedule.ka.data.Event;
 import com.goff.schedule.ka.data.Kalender;
 import com.goff.schedule.ka.services.Database;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -38,5 +40,56 @@ public class KalenderDAO {
         } finally {
             Database.close(con);
         }
+    }
+    
+    public List<Kalender> findAll(){
+        Connection con = null;
+        PreparedStatement ps = null;
+        List<Kalender> kldr = new ArrayList<Kalender>();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from kalender");
+            
+            ResultSet rs = ps.executeQuery();
+  
+            while(rs.next()){
+                kldr.add(new Kalender(rs.getInt("id"),rs.getString("startDate"),rs.getString("endDate"),rs.getString("jenis")));
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Error tambah event -->" + ex.getMessage());
+            
+        } finally {
+            Database.close(con);
+        }
+        
+        return kldr;
+    }
+    
+    public Kalender findDate(){
+        Connection con = null;
+        PreparedStatement ps = null;
+        Kalender kldr = new Kalender();
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from kalender");
+            
+            ResultSet rs = ps.executeQuery();
+  
+            while(rs.next()){
+                kldr.setStartDate(rs.getString("startDate"));
+                kldr.setEndDate(rs.getString("endDate"));
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Error tambah event -->" + ex.getMessage());
+            
+        } finally {
+            Database.close(con);
+        }
+        
+        return kldr;
     }
 }

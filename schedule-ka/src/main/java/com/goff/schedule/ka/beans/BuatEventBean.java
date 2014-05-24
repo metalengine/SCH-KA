@@ -11,6 +11,7 @@ import com.goff.schedule.ka.data.Event;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -35,7 +36,18 @@ public class BuatEventBean {
     
     private String sTanggal;
     private String sDuedate;
+    private List<Event> event;
 
+    public List<Event> getEvent() {
+        return event;
+    }
+
+    public void setEvent(List<Event> event) {
+        this.event = event;
+    }
+    
+    
+    
     public int getId() {
         return id;
     }
@@ -86,6 +98,8 @@ public class BuatEventBean {
     
     
     public BuatEventBean() {
+        EventDAO edao = new EventDAO();
+        this.setEvent(edao.findAll());
     }
 
    
@@ -97,7 +111,7 @@ public class BuatEventBean {
         Event evt = new Event();
         evt.setTanggal(sTanggal);
         evt.setInfo(info);
-        evt.setDuedata(sDuedate);
+        evt.setDuedate(sDuedate);
         EventDAO evd = new EventDAO();
         evd.save(evt);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("buatEventBean", null);

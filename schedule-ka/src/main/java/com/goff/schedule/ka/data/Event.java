@@ -15,7 +15,18 @@ public class Event {
     private int id;
     private String tanggal;
     private String info;
-    private String duedata;
+    private String duedate;
+    
+    public Event(int id, String tanggal, String info, String duedate){
+        this.id = id;
+        this.tanggal = tanggal;
+        this.info = info;
+        this.duedate = duedate;
+    }
+    
+    public Event(){
+        
+    }
 
     public int getId() {
         return id;
@@ -41,12 +52,12 @@ public class Event {
         this.info = info;
     }
 
-    public String getDuedata() {
-        return duedata;
+    public String getDuedate() {
+       return duedate;
     }
 
-    public void setDuedata(String duedata) {
-        this.duedata = duedata;
+    public void setDuedate(String duedate) {
+        this.duedate = duedate;
     }
     
         

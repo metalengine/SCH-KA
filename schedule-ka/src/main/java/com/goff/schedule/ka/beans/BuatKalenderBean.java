@@ -11,8 +11,10 @@ import com.goff.schedule.ka.data.Kalender;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -20,7 +22,7 @@ import javax.faces.context.FacesContext;
  * @author ainx
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class BuatKalenderBean {
 
     /**
@@ -29,13 +31,25 @@ public class BuatKalenderBean {
     private Date startDate;
     private Date endDate;
     
+    private List<Kalender> kalender;
+    
     private String sStartDate;
     private String sEndDate;
     private String jenis;
     
     public BuatKalenderBean() {
+        KalenderDAO kdao = new KalenderDAO();
+        this.setKalender(kdao.findAll());
     }
 
+    public List<Kalender> getKalender() {
+        return kalender;
+    }
+
+    public void setKalender(List<Kalender> kalender) {
+        this.kalender = kalender;
+    }
+    
     public Date getStartDate() {
         return startDate;
     }
@@ -88,7 +102,7 @@ public class BuatKalenderBean {
         kld.setJenis(jenis);
         KalenderDAO kldo = new KalenderDAO();
         kldo.save(kld);
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("kesediaanKalenderBean", null);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("buatKalenderBean", null);
         return "buat-kalender";
     }
 }
