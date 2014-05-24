@@ -13,7 +13,6 @@ package com.goff.schedule.ka.data;
 public class Akun {
     private int id;
     private String email;
-    private String nama;
     private String password;
     private String inisial;
     private String role;
@@ -56,14 +55,6 @@ public class Akun {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
     }
     
     

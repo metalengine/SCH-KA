@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -30,7 +31,7 @@ public class LoginBean implements Serializable{
     private static final long serialVersionUID = 1L;
     private String password;
     private String message;
-    private String uname,namadosen;
+    private String uname;
     private String inisial, role;
     
     public LoginBean(){
@@ -77,14 +78,6 @@ public class LoginBean implements Serializable{
     public void setRole(String role) {
         this.role = role;
     }
-
-    public String getNamadosen() {
-        return namadosen;
-    }
-
-    public void setNamadosen(String namadosen) {
-        this.namadosen = namadosen;
-    }
     
     
  
@@ -94,12 +87,10 @@ public class LoginBean implements Serializable{
             // get Http Session and store username
             this.setInisial(UserDAO.akun.getInisial());
             this.setRole(UserDAO.akun.getRole());
-            this.setNamadosen(UserDAO.akun.getNama());
             HttpSession session = Util.getSession();
             session.setAttribute("username", uname);
             session.setAttribute("inisial", inisial);
             session.setAttribute("role", role);
-            session.setAttribute("namadosen", namadosen);
  
             return role+"-dashboard";
         } else {

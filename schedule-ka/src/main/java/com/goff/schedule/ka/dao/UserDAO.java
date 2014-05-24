@@ -30,7 +30,7 @@ public class UserDAO {
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "select akun.email as email, akun.password as password, akun.inisial as inisial, akun.role as role, dosen.inisial as nip, dosen.nama as namadosen from akun,dosen where akun.email= ? and akun.password= ? and akun.inisial=dosen.inisial");
+                    "select email, password, inisial, role from akun where email= ? and password= ? ");
             ps.setString(1, user);
             ps.setString(2, pwd);
   
@@ -42,7 +42,6 @@ public class UserDAO {
                 akun.setEmail(rs.getString("email"));
                 akun.setInisial(rs.getString("inisial"));
                 akun.setRole(rs.getString("role"));
-                akun.setNama(rs.getString("namadosen"));
                 hasil = true;
             }
             else {

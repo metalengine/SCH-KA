@@ -8,6 +8,7 @@ package com.goff.schedule.ka.beans;
 
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -16,7 +17,7 @@ import javax.faces.context.FacesContext;
  * @author ainx
  */
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class AdminBean {
 
     /**
@@ -51,7 +52,6 @@ public class AdminBean {
         catch (Exception e){
             System.out.println("gagal : "+e);
         }
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminBean", null);
         
         return "admin=dashboard";
     }
