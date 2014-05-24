@@ -13,7 +13,6 @@ package com.goff.schedule.ka.data;
 public class JadwalSeminar {
     
     private int id;
-    private String idSeminar;
     private String idKA;
     private String tanggal;
     private String jam;

@@ -69,7 +69,7 @@ public class JadwalDosenDAO {
                     "update jadwalDosen set status=? where inisialDosen=? and tanggal=? and jam=?");
             
             ps.setString(1, jDosen.getStatus());
-            ps.setString(2, session.getAttribute("inisial").toString());
+            ps.setString(2, jDosen.getInisialDosen());
             ps.setString(3, jDosen.getTanggal());
             ps.setString(4, jDosen.getJam());
             

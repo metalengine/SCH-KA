@@ -44,11 +44,10 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="koor-dashboard.xhtml">Dashboard</a></li>
-                            <li><a href="koor-create-calender.xhtml">Kalender</a></li>
-                            <li><a href="koor-rekap-kesediaan-dosen.xhtml">Kesediaan Dosen</a></li>
-                            <li><a href="#">Jadwal Dosen</a></li>
-                            <li><a href="login.xhtml"><span class="glyphicon glyphicon-off"></span></a></li>
+                            <li><a href="admin-dashboard.xhtml">Dashboard</a></li>
+                            <li><a href="buat-kalender.xhtml">Kalender</a></li>
+                            <li><a href="buat-event.xhtml">Event</a></li>
+                            <li class="logout"><h:form><h:commandButton value="Logout" action="#{loginBean.logout()}"/></h:form></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -59,7 +58,11 @@
             <div class="jumbotron">
                 <h1>Selamat Datang!</h1>
                 <p>Selamat datang di Dashboard Pengelolaan Jadwal Seminat/Sidang Karya Akhir</p>
-                <p><a class="btn btn-primary btn-lg">Buat Kalender Seminar/sidang</a></p>
+                
+                <h:form>
+                    <h:commandButton styleClass="btn btn-primary btn-lg" value="Refresh Data" action="#{adminBean.actionGetData()}" />
+                </h:form>
+                <h:outputText value="#{adminBean.url}" />
             </div>
         </div>
 	

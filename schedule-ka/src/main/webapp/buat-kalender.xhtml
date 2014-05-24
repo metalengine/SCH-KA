@@ -42,11 +42,10 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="koor-dashboard.xhtml">Dashboard</a></li>
-                            <li><a href="koor-create-calender.xhtml">Kalender</a></li>
-                            <li><a href="koor-rekap-kesediaan-dosen.xhtml">Kesediaan Dosen</a></li>
-                            <li><a href="#">Jadwal Dosen</a></li>
-                            <li><a href="login.xhtml"><span class="glyphicon glyphicon-off"></span></a></li>
+                            <li><a href="admin-dashboard.xhtml">Dashboard</a></li>
+                            <li><a href="buat-kalender.xhtml">Kalender</a></li>
+                            <li><a href="buat-event.xhtml">Event</a></li>
+                            <li class="logout"><h:form><h:commandButton value="Logout" action="#{loginBean.logout()}"/></h:form></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -61,6 +60,31 @@
                         <div class="panel-heading">Kalender Seminar Sidang</div>
 
                         <!-- Table -->
+                        <p:dataTable id="dataTable3" var="kld" value="#{buatKalenderBean.kalender}"
+                                         paginator="true" rows="10"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         rowKey="#{kld.id}">
+                                
+                                
+                                <p:column sortBy="id" headerText="ID">
+                                    <h:outputText value="#{kld.id}" />
+                                </p:column>
+
+                                <p:column sortBy="startDate" headerText="Start Date">
+                                    <h:outputText value="#{kld.startDate}" />
+                                </p:column>
+                        
+                                <p:column sortBy="endDate" headerText="Due Date">
+                                    <h:outputText value="#{kld.endDate}" />
+                                </p:column>
+                        
+                                <p:column sortBy="jenis" headerText="Jenis">
+                                    <h:outputText value="#{kld.jenis}" />
+                                </p:column>
+                        
+                            
+                            </p:dataTable>
                         
                     </div>
                 </div>
@@ -87,8 +111,7 @@
                         </div>
                         <h:commandButton value="submit" type="submit" action="#{buatKalenderBean.actionClick()}" />
                     </h:form>
-                    <h:outputText value="#{buatKalenderBean.sStartDate}" />
-                    <h:outputText value="#{buatKalenderBean.sEndDate}" />
+                    
                 </div>
             </div>
         </div>

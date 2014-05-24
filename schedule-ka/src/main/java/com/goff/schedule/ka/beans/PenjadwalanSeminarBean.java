@@ -52,6 +52,7 @@ public class PenjadwalanSeminarBean {
     private HttpSession session = Util.getSession();
     private JadwalDosenDAO jddao= new JadwalDosenDAO();
     private JadwalSeminarDAO jsdao = new JadwalSeminarDAO();
+    private JadwalSeminar JSeminar = new JadwalSeminar();
     
     public PenjadwalanSeminarBean() throws NoSuchAlgorithmException {
         
@@ -181,14 +182,14 @@ public class PenjadwalanSeminarBean {
     
     
     public String actionSave() throws NoSuchAlgorithmException, ParseException{
-        JadwalSeminar JSeminar = new JadwalSeminar();
+        JSeminar = new JadwalSeminar();
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         date=ft.parse(this.pilihan);
         ft = new SimpleDateFormat("yyyy-MM-dd");
-        JSeminar.setTanggal(""+ft.format(date));
+        this.JSeminar.setTanggal(""+ft.format(date));
         ft = new SimpleDateFormat("HH:mm");
-        JSeminar.setJam(""+ft.format(date));
+        this.JSeminar.setJam(""+ft.format(date));
         this.setCari(JSeminar.getTanggal());
         JSeminar.setIdKA(pilihanKA.getId());
         RuangDAO rdao = new RuangDAO();
@@ -217,10 +218,16 @@ public class PenjadwalanSeminarBean {
         jsdao.update(pilihanJadwalSeminar);
     }
     
-    public String actionDelete() throws NoSuchAlgorithmException{
+    public String actionDelete() throws NoSuchAlgorithmException, ParseException{
+        JSeminar = new JadwalSeminar();
         JadwalSeminarDAO jsddao = new JadwalSeminarDAO();
         jsddao.delete(this.pilihanJadwalSeminar.getId());
-        
+        JadwalDosen jdos = new JadwalDosen();
+        jdos.setInisialDosen(session.getAttribute("inisial").toString());
+        jdos.setTanggal(this.pilihanJadwalSeminar.getTanggal());
+        jdos.setJam(this.pilihanJadwalSeminar.getJam());
+        jdos.setStatus("open");
+        jddao.update(jdos);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("penjadwalanSeminarBean", null);
         return "penjadwalan-seminar";
     }

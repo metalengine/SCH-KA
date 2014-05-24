@@ -26,10 +26,11 @@ public class UserDAO {
         PreparedStatement ps = null;
         SHAProcessor sha = new SHAProcessor(password);
         String pwd=sha.MakeSHA();
+        boolean hasil;
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
-                    "select email, password, inisial, role from akun where email= ? and password= ? ");
+                    "select akun.email as email, akun.password as password, akun.inisial as inisial, akun.role as role, dosen.inisial as nip, dosen.nama as namadosen from akun,dosen where akun.email= ? and akun.password= ? and akun.inisial=dosen.inisial");
             ps.setString(1, user);
             ps.setString(2, pwd);
   
@@ -41,16 +42,18 @@ public class UserDAO {
                 akun.setEmail(rs.getString("email"));
                 akun.setInisial(rs.getString("inisial"));
                 akun.setRole(rs.getString("role"));
-                return true;
+                akun.setNama(rs.getString("namadosen"));
+                hasil = true;
             }
             else {
-                return false;
+                hasil = false;
             }
         } catch (Exception ex) {
             System.out.println("Error in login() -->" + ex.getMessage());
-            return false;
+            hasil = false;
         } finally {
             Database.close(con);
         }
+        return hasil;
     }
 }

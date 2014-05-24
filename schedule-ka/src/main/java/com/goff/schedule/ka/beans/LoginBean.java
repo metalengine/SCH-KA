@@ -30,12 +30,12 @@ public class LoginBean implements Serializable{
     private static final long serialVersionUID = 1L;
     private String password;
     private String message;
-    private String uname;
+    private String uname,namadosen;
     private String inisial, role;
     
     public LoginBean(){
-        this.setUname("inge@informatika.org");
-        this.setPassword("admin");
+//        this.setUname("inge@informatika.org");
+//        this.setPassword("admin");
     }
  
     public String getMessage() {
@@ -77,6 +77,14 @@ public class LoginBean implements Serializable{
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String getNamadosen() {
+        return namadosen;
+    }
+
+    public void setNamadosen(String namadosen) {
+        this.namadosen = namadosen;
+    }
     
     
  
@@ -86,10 +94,12 @@ public class LoginBean implements Serializable{
             // get Http Session and store username
             this.setInisial(UserDAO.akun.getInisial());
             this.setRole(UserDAO.akun.getRole());
+            this.setNamadosen(UserDAO.akun.getNama());
             HttpSession session = Util.getSession();
             session.setAttribute("username", uname);
             session.setAttribute("inisial", inisial);
             session.setAttribute("role", role);
+            session.setAttribute("namadosen", namadosen);
  
             return role+"-dashboard";
         } else {

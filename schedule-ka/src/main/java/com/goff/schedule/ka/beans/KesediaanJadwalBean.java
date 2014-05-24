@@ -7,11 +7,14 @@
 package com.goff.schedule.ka.beans;
 
 import com.goff.schedule.ka.dao.JadwalDosenDAO;
+import com.goff.schedule.ka.dao.KalenderDAO;
 import com.goff.schedule.ka.data.JadwalDosen;
 import com.goff.schedule.ka.data.Jam;
+import com.goff.schedule.ka.data.Kalender;
 import com.goff.schedule.ka.services.Util;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -42,14 +45,50 @@ public class KesediaanJadwalBean{
     private Jam[] kJam;
     private List<JadwalDosen> jadwalDosen;
     private JadwalDosen pilihJDosen;
+    private Date sDate;
+    private Date eDate;
     
-    public KesediaanJadwalBean() throws NoSuchAlgorithmException {
+    private Kalender kalender;
+    
+    public KesediaanJadwalBean() throws NoSuchAlgorithmException, ParseException {
         HttpSession session = Util.getSession();
         JadwalDosenDAO jdDAO = new JadwalDosenDAO();
         this.setJadwalDosen(jdDAO.findAllByAttribute(session.getAttribute("inisial").toString()));
-        
+        KalenderDAO kdao = new KalenderDAO();
+        this.setKalender(kdao.findDate());
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        this.setsDate(ft.parse(kalender.getStartDate()));
+        this.seteDate(ft.parse(kalender.getEndDate()));
     }
 
+    public Date getsDate() {
+        return sDate;
+    }
+
+    public void setsDate(Date sDate) {
+        this.sDate = sDate;
+    }
+
+    public Date geteDate() {
+        return eDate;
+    }
+
+    public void seteDate(Date eDate) {
+        this.eDate = eDate;
+    }
+    
+    
+    
+    public Kalender getKalender() {
+        return kalender;
+    }
+
+    public void setKalender(Kalender kalender) {
+        this.kalender = kalender;
+    }
+    
+    
+    
     public Date getTanggal() {
         return tanggal;
     }
